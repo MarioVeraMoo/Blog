@@ -10,12 +10,13 @@ use App\Models\Tag;
 class PostController extends Controller
 {
     public function index(){
-        $posts = Post::where('status',2)->paginate(8);
+        $posts = Post::where('status',2)->latest('id')->paginate(8);
         return view('posts.index', compact('posts'));
     }
 
     public function show(Post $post){
-
+        
+        $this->authorize('published', $post);
         $similares = Post::where('category_id', $post->category_id)
                             ->where('status', 2)
                             ->where('id','!=', $post->id)
@@ -33,7 +34,7 @@ class PostController extends Controller
 
     
     public  function tag( Tag $tag){
-        $posts= $tag->posts()->where('status',2)->paginate(4);
+        $posts= $tag->posts()->where('status',2)->latest('id')->paginate(4);
         /*$posts= Post::where('category_id', $category->id)
                         ->where('status', 2)
                         ->paginate(6);*/
