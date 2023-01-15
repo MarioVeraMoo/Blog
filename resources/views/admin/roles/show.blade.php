@@ -2,7 +2,7 @@
 @section('title', 'Blog Mario')
 
 @section('content_header')
-    <h1>Mostrar detalle  de  categoria</h1>
+    <h1>Mostrar Rol</h1>
 @stop
 
 @section('content')
